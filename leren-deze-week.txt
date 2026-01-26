@@ -1,0 +1,8 @@
+
+Leren deze week:
+
+- signal forms
+- testen
+- virtual scrolling icm <mat-select> - Angular Material?
+- best practices
+
