@@ -39,12 +39,14 @@ npm
   </form>
   ```
 
+## Overloading?
 
+jQuery heeft soort van overloads:
 
+```ts
+$('div') // alle divs selecteren
+$(function() { }); // DOM ready function
+$('<div>') // nieuw element maken
+```
 
-
-
-
-
-
-
+En hoe dat werkt: veel `if` en checken wat je meegeeft als parameter.
