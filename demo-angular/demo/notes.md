@@ -161,16 +161,82 @@ Default pipes:
 - `titlecase`
 - `currency`
 
+## Signals
+
+Angular's reactive primitive
+
+- reactiviteit - "reify something" - kunnen reageren
+
+Signal functions:
+
+- `signal()` - reactieve value definier  `.set()` `.update()`
+- `computed()` - berekenen / afleiden van andere signals
+- `linkedSignal()` - `computed()` met `.set()`/`.update()`
+- `input()`
+- `output()`
+- `form()`
+- `httpResource()` - signal-wrapper om de HttpClient
+- `resource()` - async Promises
+- `rxResource()` - async Observables
+
+## modern Angular development
+
+- signals
+  - fine-grained DOM updates - performance 👍
+  - simpelere reactiviteit
+  - ruimen zichzelf op.
+- zoneless
+- standalone
+- changedetectionstrategy `OnPush`
+  - minder magie
+  - observables: `markForCheck()`  `detectChanges()`  `await fixture.whenStable()`
+  - signals 👍
+
+waarom signals:
+
+- Observables
+  - komen uit RxJS (library) en zorgt daarmee voor meer kb's in je bundle
+  - onleesbaar
+    - complex genoeg
+  - debugbaarheid is een dingetje
+  - testbaarheid, zeker wanneer meerdere streams gecombineerd worden, kan wat irritant zijn
+  - niet vergeten om op te ruimen.  `.unsubscribe()` / `| async`/ `takeUntil()`
+
+
+## Forms
 
 
 
 
+function validateVoorMe(control: AbstractControl) {
+
+}
 
 
+### Reactive
 
+- unittesten is makkelijker
+- custom validators zijn makkelijker
+- is type-safer (niet perfect type-safe) dan template-driven
+  - `form.value` is wat irritant qua nullability `Partial<T>`
 
+```ts
+new FormGroup({
+  username: new FormControl('', Validators.required)
+});
+```
 
+### Template-driven
 
+- type-safety is wat minder want alles staat in de template
+- herkenbaar aan `[(ngModel)]` - "banana in a box" syntax
 
+```html
+<input [(ngModel)]="newProduct.title" required pattern="..." mijnCustomValidator>
+```
 
+ `[(ngModel)]` is een combinatie van `value` binden en reageren op `input` event:
 
+```html
+<input [value]="..." (input)="">
+```
