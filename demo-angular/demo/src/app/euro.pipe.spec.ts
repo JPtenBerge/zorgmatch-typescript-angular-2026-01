@@ -22,7 +22,7 @@ describe('Pipe: Euro', () => {
 		[123.4, '€ 123,40'],
 		[123.45, '€ 123,45'],
 		[123, '€ 123,00'],
-	] as const)('add(%i, %i) -> %i', ([input, expected]) => {
+	] as const)('add(%i) -> %i', ([input, expected]) => {
 		expect(sut.transform(input)).toBe(expected);
 	});
 
