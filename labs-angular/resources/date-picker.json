@@ -1,0 +1,54 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Discuss Dune movie vs book",
+      "invitees": [
+        {
+          "id": 1,
+          "firstName": "Sam",
+          "surname": "Smith",
+          "email": "sam.smith@music.com"
+        },
+        {
+          "id": 2,
+          "firstName": "Frank",
+          "surname": "Muscles",
+          "email": "frank@muscles.com"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "DND scenario finally",
+      "invitees": [
+        {
+          "id": 3,
+          "firstName": "Eddy",
+          "surname": "Valentino",
+          "email": "eddy@valfam.co.uk"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "firstName": "Sam",
+      "surname": "Smith",
+      "email": "sam.smith@music.com"
+    },
+    {
+      "id": 2,
+      "firstName": "Frank",
+      "surname": "Muscles",
+      "email": "frank@muscles.com"
+    },
+    {
+      "id": 3,
+      "firstName": "Eddy",
+      "surname": "Valentino",
+      "email": "eddy@valfam.co.uk"
+    }
+  ]
+}
