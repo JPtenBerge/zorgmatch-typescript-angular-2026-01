@@ -1,20 +1,25 @@
-import { CurrencyPipe, DatePipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { EuroPipe } from './euro.pipe';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet, EuroPipe ,DatePipe, LowerCasePipe, UpperCasePipe, CurrencyPipe],
+	imports: [],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
 	name = 'Indie';
 
-	toen = new Date(1986, 4, 5)
+	properName = signal('Indie');
 
-	price = 12345678.9;
+	counter = signal(42);
+	doubled = computed(() => {
+		if (this.counter() > 50) {
+			return 15;
+		}
+
+		return this.counter() * 2;
+	});
 
 	frameworks: Framework[] = [
 		{
@@ -41,7 +46,12 @@ export class App {
 	];
 
 	changeName() {
-		this.name += 'Indie';
+		console.log(setTimeout);
+		setTimeout(() => {
+			this.name += ' verlate JP';
+			// this.properName.set('verlate JP');
+			// this.counter.update(prev => prev + 10);
+		}, 2000);
 	}
 }
 
