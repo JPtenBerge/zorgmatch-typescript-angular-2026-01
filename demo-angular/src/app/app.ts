@@ -5,8 +5,43 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('demo');
+  name = 'Indie';
+
+  frameworks: Framework[] = [
+    {
+      id: 4,
+      name: 'Angular',
+      logoUrl:
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd585tldpucybw.cloudfront.net%2Fsfimages%2Fdefault-source%2Fblogs%2F2024%2F2024-04%2Fangular-logo.png%3Fsfvrsn%3D543455a3_1&f=1&nofb=1&ipt=ea966f23409b23d3976ff4b26e816da342f74af517995f6e8351f63e6c3456d4',
+      grade: 8.5,
+    },
+    {
+      id: 8,
+      name: 'React',
+      logoUrl:
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F15%2FReact-Logo-PNG.png&f=1&ipt=c9c495c40c55fa88c595c180e4973514c8a305e874f4946c718f3dbdbccce9da',
+      grade: 4,
+    },
+    {
+      id: 15,
+      name: 'Svelte',
+      logoUrl:
+        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fswiftlet.co.th%2Fwp-content%2Fuploads%2F2022%2F11%2F1200px-Svelte_Logo.svg.png&f=1&nofb=1&ipt=1df9f2771e816475a2ead954b8a2a016454ea7e7e23daddd2097264bc6dcfa63',
+      grade: 9,
+    },
+  ];
+
+  changeName() {
+    this.name += "<script>alert('q');</script> met script";
+  }
+}
+
+interface Framework {
+  id: number;
+  name: string;
+  logoUrl: string;
+  grade: number;
 }
