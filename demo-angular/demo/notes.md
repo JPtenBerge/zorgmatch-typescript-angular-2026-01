@@ -208,15 +208,18 @@ waarom signals:
 
 
 
-function validateVoorMe(control: AbstractControl) {
 
-}
 
 
 ### Reactive
 
 - unittesten is makkelijker
 - custom validators zijn makkelijker
+  ```ts
+  function validateVoorMe(control: AbstractControl) {
+
+  }
+  ```
 - is type-safer (niet perfect type-safe) dan template-driven
   - `form.value` is wat irritant qua nullability `Partial<T>`
 
@@ -230,6 +233,7 @@ new FormGroup({
 
 - type-safety is wat minder want alles staat in de template
 - herkenbaar aan `[(ngModel)]` - "banana in a box" syntax
+- custom validators gaan dmv directive (niet mega-ingewikkeld, maar wel iets meer dan een simpele function)
 
 ```html
 <input [(ngModel)]="newProduct.title" required pattern="..." mijnCustomValidator>
