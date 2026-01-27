@@ -17,15 +17,14 @@ describe('Pipe: Euro', () => {
 		expect(sut.transform(123.456789)).toBe('€ 123,46');
 	});
 
-	let inputEnOutput = [
-		{ input: 123.4, expected: '€ 123,40' },
-		{ input: 123.4, expected: '€ 123,40' },
-		{ input: 123.4, expected: '€ 123,40' },
-	];
-	for (let item of inputEnOutput) {
-		it(`formats correctly with ${item.input}`, () => {});
-	}
-	// nog beter: it.each()
+    // data-driven test
+	it.for([
+		[123.4, '€ 123,40'],
+		[123.45, '€ 123,45'],
+		[123, '€ 123,00'],
+	] as const)('add(%i, %i) -> %i', ([input, expected]) => {
+		expect(sut.transform(input)).toBe(expected);
+	});
 
 	it('formats a number with one decimal as two decimals', () => {
 		expect(sut.transform(123.4)).toBe('€ 123,40');
