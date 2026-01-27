@@ -20,7 +20,7 @@ In this Lab you are going to create interfaces and improve the code base to make
 
 ## Exercise 1: Create an `Iban` interface
 
-1. Create an `Iban` interface. The interface should describe the shape returned by the `generateIban` function.
+1. Create an `Iban` interface. The interface should describe the shape returned by a to create `generateIban` function.
 1. Use the interface as the return type of `generateIban`
 1. Make sure that there are no compile errors.
 
