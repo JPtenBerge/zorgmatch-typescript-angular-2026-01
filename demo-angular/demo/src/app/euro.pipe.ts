@@ -3,8 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'euro' })
 export class EuroPipe implements PipeTransform {
 	transform(value: number) {
-		let [wholes, decimals] = value.toString().split('.');
-
+		let [wholes, decimals] = value.toFixed(2).split('.');
 		return `€ ${wholes},${decimals.padEnd(2, '0')}`;
 	}
 }
