@@ -1,14 +1,20 @@
+import { CurrencyPipe, DatePipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { EuroPipe } from './euro.pipe';
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet],
+	imports: [RouterOutlet, EuroPipe ,DatePipe, LowerCasePipe, UpperCasePipe, CurrencyPipe],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
 export class App {
 	name = 'Indie';
+
+	toen = new Date(1986, 4, 5)
+
+	price = 12345678.9;
 
 	frameworks: Framework[] = [
 		{

@@ -1,6 +1,11 @@
 <h1 class="mb-3 text-2xl font-bold">Testje</h1>
 
-{{ name }}
+{{ name | uppercase }}
+
+prijsss: {{ price | currency: 'EUR' }}<br><br>
+europrijs: {{ price | euro }}<br><br>
+
+toen: {{toen | date: 'dd MMM y'}}
 
 <button class="border-2 border-amber-600 bg-amber-300 p-3 hover:cursor-pointer hover:shadow-2xl" (click)="changeName()">
 	Verander naam
