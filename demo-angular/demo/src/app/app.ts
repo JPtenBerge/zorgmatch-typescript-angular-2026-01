@@ -1,9 +1,10 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
 import { form, FormField, pattern, required } from '@angular/forms/signals';
-import { ValidationMessages } from "./validation-message";
+import { ValidationMessages } from './validation-message';
 import { Life } from './life';
 import { Autocompleter } from './components/autocompleter/autocompleter';
+import { Framework } from './entities/framework';
 
 @Component({
 	selector: 'app-root',
@@ -13,9 +14,7 @@ import { Autocompleter } from './components/autocompleter/autocompleter';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-
 	autocompleter = viewChild(Autocompleter);
-
 
 	showLife = false;
 
@@ -45,7 +44,6 @@ export class App {
 	});
 
 	addFramework() {
-
 		this.addFrameworkForm().reset();
 		// this.addFrameworkValue.set({ })
 
@@ -89,11 +87,4 @@ export class App {
 	handleItemSelect(framework: Framework) {
 		console.log('hey wow er is een item geselecteerd!', framework);
 	}
-}
-
-interface Framework {
-	id: number;
-	name: string;
-	logoUrl: string;
-	grade: number;
 }
