@@ -122,10 +122,10 @@ ng generate whatever mijnnaam
 
 - Bootstrap
   - vroeger wel leuk. en handig.
-  - alles Bootstrap-sites lijken op elkaar.
+  - alle Bootstrap-sites lijken op elkaar.
   - veel `<div>`jes
 - SCSS
-  - Niks mis mee an sich
+  - Niks mis mee, an sich
   - Iedere keer weer een suf functioneel naampje voor HTML-elementen bedenken is beetje irritant `.jouw-class { }`
   - wil nog wel eens conflicten opleveren omdat een class op meerdere plekken gedefinieerd wordt en tegenstrijdige stylingregels heeft
 - Tailwind
@@ -134,7 +134,7 @@ ng generate whatever mijnnaam
   - in 1 oogopslag zichtbaar welke styling op een element zit
   - het is een design system
     - a11y  accessibility i18n internationalization l10n localization k8s kubernetes
-    - `bg-slate-300` met `hover:bg-slate-700` zorgt er al voor dat je weet dat er genoeg contract is voor kleurenblinden
+    - Qua a11y heb je dat `bg-slate-300` met `hover:bg-slate-700` er al voor zorgt dat je weet dat er genoeg contrast is voor kleurenblinden
 
   ```html
   <div class="hover:bg-red-900 hover:dit hover:dat hover:zus hover:zo) flex justify-content p-5 m-3"></div>
@@ -202,14 +202,15 @@ waarom signals:
   - testbaarheid, zeker wanneer meerdere streams gecombineerd worden, kan wat irritant zijn
   - niet vergeten om op te ruimen.  `.unsubscribe()` / `| async`/ `takeUntil()`
 
-
 ## Forms
 
+Momenteel 3 smaken:
 
-
-
-
-
+- Reactive forms
+- Template-driven forms
+- Signal-based forms
+  - Momenteel nog experimental. Zelf zit ik in het kamp van "gebruik maar", want bij een kleine breaking change pas ik liever een eventuele methodenaam aan dan dat ik een Reactive form ga omsleutelen. Maar vel daar zelf een oordeel over. [ng-tips zegt ook nog consider nog using](https://ngtips.com/form#signal-forms).
+- `valid()` is niet altijd gelijk aan `!invalid()` in verband met async validators die nog pending zijn
 
 ### Reactive
 
