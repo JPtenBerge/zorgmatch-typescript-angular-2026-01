@@ -1,8 +1,10 @@
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { form, FormField, pattern, required } from '@angular/forms/signals';
 
 @Component({
 	selector: 'app-root',
-	imports: [],
+	imports: [JsonPipe, FormField],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +22,25 @@ export class App {
 
 		return this.counter() * 2;
 	});
+
+	addFrameworkValue = signal({
+		name: '',
+		logoUrl: '',
+		grade: 2,
+	});
+	addFrameworkForm = form(this.addFrameworkValue, p => {
+		required(p.name, { message: 'Vul in aub' });
+		required(p.logoUrl, { message: 'Vul in aub' });
+		required(p.grade, { message: 'Vul in aub' });
+		pattern(p.name, /^[A-Z][a-zA-Z]*$/, { message: 'Alleen letters graag. En een hoofdletter aant begin.' });
+	});
+
+	addFramework(event: Event) {
+		event.preventDefault();
+
+		console.log('werkt!', this.addFrameworkValue());
+		this.frameworks.push({ id: 0, ...this.addFrameworkValue() });
+	}
 
 	frameworks: Framework[] = [
 		{
