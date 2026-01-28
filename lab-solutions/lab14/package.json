@@ -1,0 +1,51 @@
+{
+	"name": "datepicker",
+	"version": "0.0.0",
+	"scripts": {
+		"ng": "ng",
+		"build": "ng build",
+		"watch": "ng build --watch --configuration development",
+		"test": "ng test",
+		"test:ui": "playwright test",
+		"lint": "ng lint",
+		"lint:ui": "tsc -p e2e",
+		"start": "concurrently \"npm run start:ng\" \"npm run start:server\"",
+		"start:ng": "ng serve",
+		"start:server": "json-server --watch ./date-picker.json"
+	},
+	"private": true,
+	"packageManager": "pnpm@10.26.2",
+	"dependencies": {
+		"@angular/common": "^21.0.0",
+		"@angular/compiler": "^21.0.0",
+		"@angular/core": "^21.0.0",
+		"@angular/forms": "^21.0.0",
+		"@angular/platform-browser": "^21.0.0",
+		"@angular/router": "^21.0.0",
+		"rxjs": "~7.8.0",
+		"tslib": "^2.3.0"
+	},
+	"devDependencies": {
+		"@angular-eslint/builder": "21.1.0",
+		"@angular/build": "^21.0.4",
+		"@angular/cli": "^21.0.4",
+		"@angular/compiler-cli": "^21.0.0",
+		"@eslint/js": "^9.39.1",
+		"@playwright/test": "^1.57.0",
+		"@tailwindcss/postcss": "^4.1.12",
+		"@types/node": "^25.0.3",
+		"angular-eslint": "21.1.0",
+		"concurrently": "^9.2.1",
+		"daisyui": "^5.5.14",
+		"eslint": "^9.39.1",
+		"jsdom": "^27.1.0",
+		"json-server": "0.17.4",
+		"postcss": "^8.5.3",
+		"prettier": "^3.7.4",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"tailwindcss": "^4.1.12",
+		"typescript": "~5.9.2",
+		"typescript-eslint": "8.47.0",
+		"vitest": "^4.0.8"
+	}
+}

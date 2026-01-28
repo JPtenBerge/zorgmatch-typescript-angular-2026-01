@@ -1,0 +1,35 @@
+<div class="container">
+	<h1 class="text-6xl font-bold">Date picker</h1>
+	<p class="mb-10 ml-18 text-2xl">Pick your date like a pro</p>
+	<h3 class="text-2xl font-bold">Contacts</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th colspan="2">E-mail address</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (contact of contacts; track contact.id) {
+				<tr>
+					<td class="flex items-center gap-6" [style.backgroundColor]="contact.color">
+						<div>
+							<input
+								(input)="setColor($event, contact)"
+								class="form-control form-control-color"
+								type="color"
+								value="#ffffff"
+							/>
+						</div>
+						<div>{{ contact.firstName }} {{ contact.surname }}</div>
+					</td>
+					<td [style.backgroundColor]="contact.color">{{ contact.email }}</td>
+					<td [style.backgroundColor]="contact.color">
+						<button class="btn btn-secondary me-2">Edit</button>
+						<button class="btn btn-error" (click)="deleteContact(contact)">Delete</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

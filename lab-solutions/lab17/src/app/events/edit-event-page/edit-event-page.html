@@ -1,0 +1,13 @@
+<h3 class="mb-3 text-2xl font-bold">Event</h3>
+
+@if (!plannedEvent()) {
+	<p>Loading event...</p>
+} @else {
+	<div>
+		<form (submit)="update($event)" class="flex items-center gap-2" autocomplete="off" novalidate>
+			<input [field]="editEventForm.name" class="input" placeholder="Birthday party" aria-label="Event name" />
+
+			<button [disabled]="!editEventForm().valid()" id="button-addon2" class="btn btn-primary">Update</button>
+		</form>
+	</div>
+}

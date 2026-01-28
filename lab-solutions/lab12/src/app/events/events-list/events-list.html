@@ -1,0 +1,10 @@
+<ul class="list">
+	@for (event of events(); track event.id) {
+		<li class="list-row">
+			<a [routerLink]="['edit', event.id]">
+				{{ event.name }}
+				<span class="badge bg-primary rounded-pill text-primary-content">{{ event.invitees.length }}</span>
+			</a>
+		</li>
+	}
+</ul>
