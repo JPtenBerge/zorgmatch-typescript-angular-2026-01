@@ -1,16 +1,24 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
 import { form, FormField, pattern, required } from '@angular/forms/signals';
 import { ValidationMessages } from "./validation-message";
+import { Life } from './life';
+import { Autocompleter } from './components/autocompleter/autocompleter';
 
 @Component({
 	selector: 'app-root',
-	imports: [JsonPipe, FormField, ValidationMessages],
+	imports: [JsonPipe, FormField, ValidationMessages, Life, Autocompleter],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
+
+	autocompleter = viewChild(Autocompleter);
+
+
+	showLife = false;
+
 	name = 'Indie';
 
 	properName = signal('Indie');
@@ -36,8 +44,10 @@ export class App {
 		pattern(p.name, /^[A-Z][a-zA-Z]*$/, { message: 'Alleen letters graag. En een hoofdletter aant begin.' });
 	});
 
-	addFramework(event: Event) {
-		event.preventDefault();
+	addFramework() {
+
+		this.addFrameworkForm().reset();
+		// this.addFrameworkValue.set({ })
 
 		console.log('werkt!', this.addFrameworkValue());
 		this.frameworks.push({ id: 0, ...this.addFrameworkValue() });
@@ -74,6 +84,10 @@ export class App {
 			// this.properName.set('verlate JP');
 			// this.counter.update(prev => prev + 10);
 		}, 2000);
+	}
+
+	handleItemSelect(framework: Framework) {
+		console.log('hey wow er is een item geselecteerd!', framework);
 	}
 }
 
