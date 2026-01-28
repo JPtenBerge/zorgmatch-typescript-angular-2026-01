@@ -54,28 +54,28 @@ doubled: {{ doubled() }}
 						[formField]="addFrameworkForm.name"
 					/>
 
-					@if (
-						addFrameworkForm.name().dirty() &&
-						addFrameworkForm.name().touched() &&
-						addFrameworkForm.name().errors().length > 0
-					) {
-						<span class="text-error">{{ addFrameworkForm.name().errors()[0].message }}</span>
-					}
+					<app-validation-message [field]="addFrameworkForm.name" />
 				</div>
 			</li>
 			<li class="col-span-2 grid grid-cols-subgrid items-center">
 				<label for="input-logo-url">Logo URL:</label>
-				<input id="input-logo-url" type="url" class="input input-primary" [formField]="addFrameworkForm.logoUrl" />
+				<div>
+					<input id="input-logo-url" type="url" class="input input-primary" [formField]="addFrameworkForm.logoUrl" />
+					<app-validation-message [field]="addFrameworkForm.logoUrl" />
+				</div>
 			</li>
 			<li class="col-span-2 grid grid-cols-subgrid items-center">
 				<label for="input-grade">Cijfer:</label>
-				<input
-					id="input-grade"
-					class="input input-primary"
-					step="0.5"
-					type="number"
-					[formField]="addFrameworkForm.grade"
-				/>
+				<div>
+					<input
+						id="input-grade"
+						class="input input-primary"
+						step="0.5"
+						type="number"
+						[formField]="addFrameworkForm.grade"
+					/>
+					<app-validation-message [field]="addFrameworkForm.grade" />
+				</div>
 			</li>
 			<li class="col-span-2">
 				<button class="btn btn-primary" [disabled]="!addFrameworkForm().valid()">Voeg toe</button>

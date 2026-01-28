@@ -1,10 +1,11 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { form, FormField, pattern, required } from '@angular/forms/signals';
+import { ValidationMessages } from "./validation-message";
 
 @Component({
 	selector: 'app-root',
-	imports: [JsonPipe, FormField],
+	imports: [JsonPipe, FormField, ValidationMessages],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
