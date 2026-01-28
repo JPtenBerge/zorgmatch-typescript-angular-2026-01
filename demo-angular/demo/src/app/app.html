@@ -38,30 +38,36 @@ doubled: {{ doubled() }}
 	</table>
 
 	<form (submit)="addFramework($event)" novalidate>
-		<ol>
-			<li>
+		<ol class="grid grid-cols-[max-content,1fr] gap-3">
+			<li class="col-span-2 grid grid-cols-subgrid items-center">
 				<label for="input-framework">Framework:</label>
-				<input
-					id="input-framework"
-					class="input"
-					[class.input-success]="addFrameworkForm.name().valid()"
-					[class.input-error]="!addFrameworkForm.name().valid()"
-					[formField]="addFrameworkForm.name"
-				/>
+				<div>
+					<input
+						id="input-framework"
+						class="input block"
+						[class.input-success]="addFrameworkForm.name().valid()"
+						[class.input-error]="
+							addFrameworkForm.name().dirty() &&
+							addFrameworkForm.name().touched() &&
+							!addFrameworkForm.name().valid()
+						"
+						[formField]="addFrameworkForm.name"
+					/>
 
-				@if (
-					addFrameworkForm.name().dirty() &&
-					addFrameworkForm.name().touched() &&
-					addFrameworkForm.name().errors().length > 0
-				) {
-					<span>{{ addFrameworkForm.name().errors()[0].message }}</span>
-				}
+					@if (
+						addFrameworkForm.name().dirty() &&
+						addFrameworkForm.name().touched() &&
+						addFrameworkForm.name().errors().length > 0
+					) {
+						<span class="text-error">{{ addFrameworkForm.name().errors()[0].message }}</span>
+					}
+				</div>
 			</li>
-			<li>
+			<li class="col-span-2 grid grid-cols-subgrid items-center">
 				<label for="input-logo-url">Logo URL:</label>
 				<input id="input-logo-url" type="url" class="input input-primary" [formField]="addFrameworkForm.logoUrl" />
 			</li>
-			<li>
+			<li class="col-span-2 grid grid-cols-subgrid items-center">
 				<label for="input-grade">Cijfer:</label>
 				<input
 					id="input-grade"
@@ -71,11 +77,11 @@ doubled: {{ doubled() }}
 					[formField]="addFrameworkForm.grade"
 				/>
 			</li>
-			<li>
+			<li class="col-span-2">
 				<button class="btn btn-primary" [disabled]="!addFrameworkForm().valid()">Voeg toe</button>
 			</li>
-			<li>{{ addFrameworkValue() | json }}</li>
-			<li>{{ !addFrameworkForm().valid() }}</li>
+			<li class="col-span-2">{{ addFrameworkValue() | json }}</li>
+			<li class="col-span-2">{{ !addFrameworkForm().valid() }}</li>
 		</ol>
 	</form>
 </div>
