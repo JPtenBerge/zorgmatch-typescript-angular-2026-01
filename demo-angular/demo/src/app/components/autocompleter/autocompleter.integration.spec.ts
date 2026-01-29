@@ -45,6 +45,9 @@ describe('Autocompleter', () => {
 		await session.type(queryInput, 'ngular');
 		await session.click(queryInput);
 
+		let suggestionList = screen.getByRole('list');
+		expect(suggestionList).toBeVisible();
+
 		let suggestions = screen.getAllByRole('listitem');
 		expect(suggestions.length).toBe(1);
 	});
