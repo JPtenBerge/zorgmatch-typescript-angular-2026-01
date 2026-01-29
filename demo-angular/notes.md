@@ -334,5 +334,19 @@ Opties:
   - ondersteunt pagination en infinite queries
 
 
+## Routing - SPA
+
+1. routes definieren   /home ==> HomeComponent
+2. `<router-outlet />`
+3. alles opsplitsen  <== meeste tijd.
+
+Router features:
+
+- lazy loading
+- route guards - checken of jij wel naar een pagina MAG
+- route resolvers - data   /product/1245
+- child routes
+- nu in signals graag
+- params zijn uitleesbaar door `ActivatedRoute` te laten injecteren of middels de nieuwere `withComponentInputBinding()` en dan een `input()`-signal te gebruiken
 
 
