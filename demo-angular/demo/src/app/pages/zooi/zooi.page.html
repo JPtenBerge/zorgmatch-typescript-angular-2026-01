@@ -1,0 +1,22 @@
+<h1 class="mb-3 text-2xl font-bold">Testje</h1>
+
+@if (fancyFrameworks.hasValue()) {
+	<app-autocompleter [data]="fancyFrameworks.value()" (selectItem)="handleItemSelect($event)" />
+}
+<hr />
+
+route param: {{ id() }}
+
+<hr />
+
+<button class="btn btn-secondary" (click)="showLife = !showLife">Toggle life</button>
+
+@if (showLife) {
+	<app-life message="hoiiiiiiiiiii" />
+}
+
+<button class="border-2 border-amber-600 bg-amber-300 p-3 hover:cursor-pointer hover:shadow-2xl" (click)="changeName()">
+	Verander naam
+</button>
+
+<button class="btn btn-primary ml-3" (click)="changeName()">Verander naam met DaisyUI</button>

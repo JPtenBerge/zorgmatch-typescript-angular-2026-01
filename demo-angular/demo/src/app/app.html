@@ -1,92 +1,11 @@
-<h1 class="mb-3 text-2xl font-bold">Testje</h1>
 
-@if (fancyFrameworks.hasValue()) {
-	<app-autocompleter [data]="fancyFrameworks.value()" (selectItem)="handleItemSelect($event)" />
-}
-<hr />
+<nav>
+	<ol>
+		<li><a routerLink="/frameworks">Frameworks</a></li>
+		<li><a routerLink="/zooi/18/whaaaat/huh">Zooi</a></li>
+		<li><a routerLink="/zooi/99/sdfghgfds/qergjfdhgkfsdo">Zooi</a></li>
+		<li><a routerLink=""></a></li>
+	</ol>
+</nav>
 
-<button class="btn btn-secondary" (click)="showLife = !showLife">Toggle life</button>
-
-@if (showLife) {
-	<app-life message="hoiiiiiiiiiii" />
-}
-
-<button class="border-2 border-amber-600 bg-amber-300 p-3 hover:cursor-pointer hover:shadow-2xl" (click)="changeName()">
-	Verander naam
-</button>
-
-<button class="btn btn-primary ml-3" (click)="changeName()">Verander naam met DaisyUI</button>
-
-<hr />
-<div class="flex gap-5">
-	@if (fancyFrameworks.isLoading()) {
-		<p>Loading frameworks!</p>
-	} @else {
-		<table>
-			<thead>
-				<tr>
-					<th>Framework</th>
-					<th>Logo</th>
-					<th>Cijfer</th>
-				</tr>
-			</thead>
-			<tbody>
-				@for (framework of fancyFrameworks.value(); track framework.id) {
-					<tr (mouseover)="framework.grade = framework.grade + 1" [class.bg-yellow-300]="framework.grade > 9">
-						<td>{{ framework.name }}</td>
-						<td><img [src]="framework.logoUrl" class="max-w-24" /></td>
-						<td>{{ framework.grade }}</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
-
-	<form (submit)="addFramework(); $event.preventDefault()" novalidate>
-		<ol class="grid grid-cols-[max-content,1fr] gap-3">
-			<li class="col-span-2 grid grid-cols-subgrid items-center">
-				<label for="input-framework">Framework:</label>
-				<div>
-					<input
-						id="input-framework"
-						class="input block"
-						[class.input-success]="addFrameworkForm.name().valid()"
-						[class.input-error]="
-							addFrameworkForm.name().dirty() &&
-							addFrameworkForm.name().touched() &&
-							!addFrameworkForm.name().valid()
-						"
-						[formField]="addFrameworkForm.name"
-					/>
-
-					<app-validation-message [field]="addFrameworkForm.name" />
-				</div>
-			</li>
-			<li class="col-span-2 grid grid-cols-subgrid items-center">
-				<label for="input-logo-url">Logo URL:</label>
-				<div>
-					<input id="input-logo-url" type="url" class="input input-primary" [formField]="addFrameworkForm.logoUrl" />
-					<app-validation-message [field]="addFrameworkForm.logoUrl" />
-				</div>
-			</li>
-			<li class="col-span-2 grid grid-cols-subgrid items-center">
-				<label for="input-grade">Cijfer:</label>
-				<div>
-					<input
-						id="input-grade"
-						class="input input-primary"
-						step="0.5"
-						type="number"
-						[formField]="addFrameworkForm.grade"
-					/>
-					<app-validation-message [field]="addFrameworkForm.grade" />
-				</div>
-			</li>
-			<li class="col-span-2">
-				<button class="btn btn-primary" [disabled]="!addFrameworkForm().valid()">Voeg toe</button>
-			</li>
-			<li class="col-span-2">{{ addFrameworkValue() | json }}</li>
-			<li class="col-span-2">{{ !addFrameworkForm().valid() }}</li>
-		</ol>
-	</form>
-</div>
+<router-outlet />
