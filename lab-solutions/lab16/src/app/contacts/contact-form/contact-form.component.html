@@ -1,0 +1,64 @@
+<form (submit)="addContact($event)" novalidate autocomplete="off">
+	<ol class="grid grid-cols-[min-content_1fr] gap-x-5 gap-y-2">
+		<li class="col-span-3 grid grid-cols-subgrid items-center">
+			<label for="input-name" class="label">First name</label>
+			<div>
+				<input
+					id="input-name"
+					[field]="addContactForm.firstName"
+					class="input block"
+					[class.input-error]="addContactForm.firstName().touched() && addContactForm.firstName().errors().length > 0"
+					[class.input-success]="
+						addContactForm.firstName().touched() && addContactForm.firstName().errors().length === 0
+					"
+				/>
+				@if (addContactForm.firstName().touched() && addContactForm.firstName().errors().length > 0) {
+					<div class="label">
+						<span class="text-error">
+							{{ addContactForm.firstName().errors()[0].message }}
+						</span>
+					</div>
+				}
+			</div>
+		</li>
+		<li class="col-span-3 grid grid-cols-subgrid items-center">
+			<label for="input-surname" class="label">Surname</label>
+			<div>
+				<input
+					id="input-surname"
+					[field]="addContactForm.surname"
+					class="input block"
+					[class.input-error]="addContactForm.surname().touched() && addContactForm.surname().errors().length > 0"
+					[class.input-success]="addContactForm.surname().touched() && addContactForm.surname().errors().length === 0"
+				/>
+				@if (addContactForm.surname().touched() && addContactForm.surname().errors().length > 0) {
+					<div class="label">
+						<span class="text-error">
+							{{ addContactForm.surname().errors()[0].message }}
+						</span>
+					</div>
+				}
+			</div>
+		</li>
+		<li class="col-span-3 grid grid-cols-subgrid items-center">
+			<label for="input-email" class="label">E-mail address</label>
+			<div>
+				<input
+					id="input-email"
+					[field]="addContactForm.email"
+					class="input block"
+					[class.input-error]="addContactForm.email().touched() && addContactForm.email().errors().length > 0"
+					[class.input-success]="addContactForm.email().touched() && addContactForm.email().errors().length === 0"
+				/>
+				@if (addContactForm.email().touched() && addContactForm.email().errors().length > 0) {
+					<div class="label">
+						<span class="text-error">
+							{{ addContactForm.email().errors()[0].message }}
+						</span>
+					</div>
+				}
+			</div>
+		</li>
+		<li><button [disabled]="!addContactForm().valid()" class="btn btn-primary">Add</button></li>
+	</ol>
+</form>

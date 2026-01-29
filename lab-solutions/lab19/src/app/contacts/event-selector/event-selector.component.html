@@ -1,0 +1,18 @@
+<input class="input" placeholder="Search event" [value]="query()" (input)="query.set($event.target.value)" />
+
+@if (isLoading) {
+	<div role="status" class="p-4">
+		<span class="loading loading-spinner text-primary"></span>
+		<span class="sr-only">Loading...</span>
+	</div>
+} @else {
+	<ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+		@for (event of events; track event.id) {
+			<li>
+				<button (click)="selected.emit(event)" class="dropdown-item">
+					{{ event.name }}
+				</button>
+			</li>
+		}
+	</ul>
+}

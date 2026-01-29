@@ -1,0 +1,45 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th colspan="2">E-mail address</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (contact of contacts(); track contact.id) {
+			<tr>
+				<td class="flex items-center gap-6" [style.backgroundColor]="contact.color">
+					<div>
+						<input
+							(input)="setColor($event, contact)"
+							class="form-control form-control-color"
+							type="color"
+							value="#ffffff"
+						/>
+					</div>
+					@if (editingContact().id === contact.id) {
+						<input class="input" data-testid="firstName" [field]="editContactForm.firstName" />
+						<input class="input" data-testid="surname" [field]="editContactForm.surname" />
+					} @else {
+						<div>{{ contact | contactName }}</div>
+					}
+				</td>
+				<td [style.backgroundColor]="contact.color">
+					@if (editingContact().id === contact.id) {
+						<input class="input" data-testid="email" [field]="editContactForm.email" />
+					} @else {
+						{{ contact.email }}
+					}
+				</td>
+				<td [style.backgroundColor]="contact.color" class="flex">
+					@if (editingContact().id === contact.id) {
+						<button class="btn btn-secondary saveButton me-2" (click)="saveEdits()">Save</button>
+					} @else {
+						<button class="btn btn-secondary editButton me-2" (click)="editContact(contact)">Edit</button>
+					}
+					<button class="btn btn-error deleteButton" (click)="deleteContact(contact)">Delete</button>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,9 @@
+<h3 class="mb-3 text-2xl font-bold">Events</h3>
+
+@if (events.isLoading()) {
+	<p>Loading events...</p>
+} @else if (!events.hasValue()) {
+	<p>No events found.</p>
+} @else {
+	<dp-events-list [events]="events.value()" />
+}

@@ -1,0 +1,121 @@
+<div class="container">
+	<h1 class="text-6xl font-bold">Date picker</h1>
+	<p class="mb-10 ml-18 text-2xl">Pick your date like a pro</p>
+
+	<h3 class="mb-3 text-2xl font-bold">Your {{ nrOfContacts() }} contacts</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th colspan="2">E-mail address</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (contact of contacts(); track contact.id) {
+				<tr>
+					<td class="flex items-center gap-6" [style.backgroundColor]="contact.color">
+						<div>
+							<input
+								(input)="setColor($event, contact)"
+								class="form-control form-control-color"
+								type="color"
+								value="#ffffff"
+							/>
+						</div>
+						@if (editingContact().id === contact.id) {
+							<input class="input" [field]="editContactForm.firstName" />
+							<input class="input" [field]="editContactForm.surname" />
+						} @else {
+							<div>{{ contact | contactName }}</div>
+						}
+					</td>
+					<td [style.backgroundColor]="contact.color">
+						@if (editingContact().id === contact.id) {
+							<input class="input" [field]="editContactForm.email" />
+						} @else {
+							{{ contact.email }}
+						}
+					</td>
+					<td [style.backgroundColor]="contact.color" class="flex">
+						@if (editingContact().id === contact.id) {
+							<button class="btn btn-secondary me-2" (click)="saveEdits(contact)">Save</button>
+						} @else {
+							<button class="btn btn-secondary me-2" (click)="editContact(contact)">Edit</button>
+						}
+						<button class="btn btn-error" (click)="deleteContact(contact)">Delete</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<h3 class="mt-8 mb-3 text-2xl font-bold">Add contact</h3>
+	<form (submit)="addContact($event)" novalidate autocomplete="off">
+		<ol class="grid grid-cols-[min-content_1fr] gap-x-5 gap-y-2">
+			<li class="col-span-3 grid grid-cols-subgrid items-center">
+				<label for="input-name" class="label">First name</label>
+				<div>
+					<input
+						id="input-name"
+						[field]="addContactForm.firstName"
+						class="input block"
+						[class.input-error]="
+							addContactForm.firstName().touched() && addContactForm.firstName().errors().length > 0
+						"
+						[class.input-success]="
+							addContactForm.firstName().touched() && addContactForm.firstName().errors().length === 0
+						"
+					/>
+					@if (addContactForm.firstName().touched() && addContactForm.firstName().errors().length > 0) {
+						<div class="label">
+							<span class="text-error">
+								{{ addContactForm.firstName().errors()[0].message }}
+							</span>
+						</div>
+					}
+				</div>
+			</li>
+			<li class="col-span-3 grid grid-cols-subgrid items-center">
+				<label for="input-surname" class="label">Surname</label>
+				<div>
+					<input
+						id="input-surname"
+						[field]="addContactForm.surname"
+						class="input block"
+						[class.input-error]="addContactForm.surname().touched() && addContactForm.surname().errors().length > 0"
+						[class.input-success]="
+							addContactForm.surname().touched() && addContactForm.surname().errors().length === 0
+						"
+					/>
+					@if (addContactForm.surname().touched() && addContactForm.surname().errors().length > 0) {
+						<div class="label">
+							<span class="text-error">
+								{{ addContactForm.surname().errors()[0].message }}
+							</span>
+						</div>
+					}
+				</div>
+			</li>
+			<li class="col-span-3 grid grid-cols-subgrid items-center">
+				<label for="input-email" class="label">E-mail address</label>
+				<div>
+					<input
+						id="input-email"
+						[field]="addContactForm.email"
+						class="input block"
+						[class.input-error]="addContactForm.email().touched() && addContactForm.email().errors().length > 0"
+						[class.input-success]="addContactForm.email().touched() && addContactForm.email().errors().length === 0"
+					/>
+					@if (addContactForm.email().touched() && addContactForm.email().errors().length > 0) {
+						<div class="label">
+							<span class="text-error">
+								{{ addContactForm.email().errors()[0].message }}
+							</span>
+						</div>
+					}
+				</div>
+			</li>
+			<li><button [disabled]="!addContactForm().valid()" class="btn btn-primary">Add</button></li>
+		</ol>
+	</form>
+</div>
