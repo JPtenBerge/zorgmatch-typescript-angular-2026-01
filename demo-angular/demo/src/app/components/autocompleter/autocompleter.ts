@@ -25,7 +25,7 @@ export class Autocompleter<T extends {}> {
 			for (let prop of props.filter(x => typeof item[x] === 'string')) {
 				let value = item[prop] as string;
 				if (value.includes(this.query())) {
-					suggestions.push({ isHighlighted: false, ...item });
+					suggestions.push(item);
 					break;
 				}
 			}

@@ -1,54 +1,40 @@
-import { render, screen } from '@testing-library/angular';
-import { type UserEvent, userEvent } from '@testing-library/user-event';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Mocked } from 'vitest';
 
 import { Autocompleter } from './autocompleter';
-import { Framework } from '../../entities/framework';
+import { NavigateService } from '../../services/navigate.service';
 
-describe('Autocompleter', () => {
-	let session: UserEvent;
-	let frameworkData: Framework[];
+interface Product {
+	title: string;
+}
+
+describe('Component: Autocompleter', () => {
+	let sut: Autocompleter<Product>;
+	let fixture: ComponentFixture<Autocompleter<Product>>;
+	let productData: Product[];
+	let navigateServiceMock: Mocked<NavigateService>;
 
 	beforeEach(() => {
-		// TestBed.configureTestingModule({
-		// 	providers: [ ,{ provide: NavigateService, useValue: {} }]
-		// })
-		session = userEvent.setup();
-		frameworkData = [
-			{
-				id: 4,
-				name: 'Angular',
-				logoUrl:
-					'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd585tldpucybw.cloudfront.net%2Fsfimages%2Fdefault-source%2Fblogs%2F2024%2F2024-04%2Fangular-logo.png%3Fsfvrsn%3D543455a3_1&f=1&nofb=1&ipt=ea966f23409b23d3976ff4b26e816da342f74af517995f6e8351f63e6c3456d4',
-				grade: 8.5,
-			},
-			{
-				id: 8,
-				name: 'React',
-				logoUrl:
-					'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F15%2FReact-Logo-PNG.png&f=1&ipt=c9c495c40c55fa88c595c180e4973514c8a305e874f4946c718f3dbdbccce9da',
-				grade: 4,
-			},
-			{
-				id: 15,
-				name: 'Svelte',
-				logoUrl:
-					'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fswiftlet.co.th%2Fwp-content%2Fuploads%2F2022%2F11%2F1200px-Svelte_Logo.svg.png&f=1&nofb=1&ipt=1df9f2771e816475a2ead954b8a2a016454ea7e7e23daddd2097264bc6dcfa63',
-				grade: 9,
-			},
-		];
+		productData = [{ title: 'Hairbrush' }, { title: 'Laptop' }, { title: 'Mouse' }];
+		navigateServiceMock = { next: vi.fn().mockReturnValue(18) };
+
+		TestBed.configureTestingModule({
+			providers: [{ provide: NavigateService, useValue: navigateServiceMock }],
+		});
+		fixture = TestBed.createComponent(Autocompleter<Product>);
+		sut = fixture.componentInstance;
+		fixture.componentRef.setInput('data', productData);
 	});
 
-	it('should create', async () => {
-		await render(Autocompleter, {
-			inputs: { data: frameworkData },
-		});
+	it('autocompletes a list of suggestions', async () => {
+		sut.query.set('o');
+		expect(sut.suggestions()).toEqual([{ title: 'Laptop' }, { title: 'Mouse' }]);
+	});
 
-		let queryInput = screen.getByRole('textbox');
-		await session.clear(queryInput);
-		await session.type(queryInput, 'ngular');
-		await session.click(queryInput);
-
-		let suggestions = screen.getAllByRole('listitem');
-		expect(suggestions.length).toBe(1);
+	it(`uses ${NavigateService.name} for nexting to the next suggestions`, () => {
+		sut.query.set('o');
+		sut.next();
+		expect(navigateServiceMock.next).toHaveBeenCalled();
+		expect(sut.activeSuggestionIndex).toBe(18);
 	});
 });
