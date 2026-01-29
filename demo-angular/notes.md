@@ -191,6 +191,7 @@ Signal functions:
   - minder magie
   - observables: `markForCheck()`  `detectChanges()`  `await fixture.whenStable()`
   - signals 👍
+- Testing Library voor integratietesten
 
 waarom signals:
 
@@ -245,3 +246,62 @@ new FormGroup({
 ```html
 <input [value]="..." (input)="">
 ```
+
+## Components
+
+`OnPush`-instelling geeft aan: ik hoef niet continu mee te doen met change detection
+
+wanneer sowieso wel:
+
+- wanneer een `input()` verandert
+- wanneer er een event optreedt binnenin het component
+- wanneer een signalwaarde verandert
+- of expliciet - `markForChanges()`
+
+## Integratietesten
+
+- iets aan het integreren
+- bij frontend is dat vaak HTML renderen
+
+Angular komt zelf ook met integratietest-ondersteuning:
+
+```ts
+let fixture = TestBed.configureTestingModule(...).createComponent();
+fixture.nativeElement.querySelector() // HTML raadplegen
+```
+
+Echter is dit wat primitief. Het is "gewoon" de HTML querien. Ook events aftrappen -werkt wel-:
+
+```ts
+button.dispatchEvent(new CustomEvent('click'));   
+```
+
+Maar het is hele chirurgische, technische operatie. Houdt geen rekening met of de knop gedisabled is, uberhaupt zichtbaar is, niet volop aan het animeren is.
+
+Testing Library probeert dit alles beter te doen. Focust op het gebruikersperspectief. Selecteert elementen op een accessible manier. Triggert events enkel als dat "kan" en simuleert cursor-bewegingen voordat de klik gebeurt.
+
+Verder:
+
+- Testing Library prefereert meer integratietests over unittests, want integratietests geven meer vertrouwen dat "het hele systeem werkt" terwijl ze nog steeds relatief snel te maken/te runnen zijn.
+- geen stricte AAA- meer Arrange-(Act-Assert)*
+  - tests lezen vaak als een user story
+- qua mocken: mock what you don't own.
+  - Browser APIs, HTTP-requests, etc.
+	- mock for practical reasons, but not for convenience
+    - code die 12 seconden duurt om uit te voeren, mag gemockt worden
+
+## Dependency injection
+
+- inject dependencies
+- afhankelijkheid los definieren
+- low coupling, high cohesion
+- service beschikbaar maken:
+  - registreren in `providers` array van `app.config.ts` (oude manier)
+  - middels `{ providedIn: 'root' }`
+    - betere, moderne manier. helpt met het optimalizeren van je bundle.
+- service injecteren:
+  - via constructor: heeft minder de voorkeur want bijzondere TypeScript-syntax, maar ook dat steeds meer Angular-onderdelen functies worden ipv classes.
+  - `inject(JouwService)`
+
+
+
