@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, input, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core';
 import { form, FormField, pattern, required } from '@angular/forms/signals';
 import { ValidationMessages } from './validation-message';
 import { Life } from './life';
@@ -15,9 +15,6 @@ import { HttpClient, httpResource } from '@angular/common/http';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-	private http = inject(HttpClient);
-	// private cdr = inject(ChangeDetectorRef);
-
 	autocompleter = viewChild(Autocompleter);
 
 	showLife = false;
@@ -27,13 +24,7 @@ export class App {
 	properName = signal('Indie');
 
 	counter = signal(42);
-	doubled = computed(() => {
-		if (this.counter() > 50) {
-			return 15;
-		}
-
-		return this.counter() * 2;
-	});
+	doubled = computed(() => (this.counter() > 50 ? 15 : this.counter() * 2));
 
 	addFrameworkValue = signal({
 		name: '',
@@ -47,17 +38,9 @@ export class App {
 		pattern(p.name, /^[A-Z][a-zA-Z]*$/, { message: 'Alleen letters graag. En een hoofdletter aant begin.' });
 	});
 
-	frameworks = signal<Framework[]>([]);
-	id = input.required<number>();  // /product/456
+	fancyFrameworks = httpResource<Framework[]>(() => `http://localhost:3000/frameworks`);
 
-	// GET
-	fancyFrameworks = httpResource<Framework[]>(() => `http://localhost:3000/frameworks/${this.id()}`);
-
-	ngOnInit() {
-		this.http.get<Framework[]>('http://localhost:3000/frameworks').subscribe(fetchedFrameworks => {
-			this.frameworks.update(frameworks => [...frameworks, ...fetchedFrameworks])
-		});
-	}
+	aantalFramework = computed(() => this.fancyFrameworks.value()!.length);
 
 	addFramework() {
 		this.addFrameworkForm().reset();
