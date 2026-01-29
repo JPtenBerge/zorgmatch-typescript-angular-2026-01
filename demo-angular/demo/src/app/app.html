@@ -1,11 +1,15 @@
-
-<nav>
-	<ol>
-		<li><a routerLink="/frameworks">Frameworks</a></li>
-		<li><a routerLink="/zooi/18/whaaaat/huh">Zooi</a></li>
-		<li><a routerLink="/zooi/99/sdfghgfds/qergjfdhgkfsdo">Zooi</a></li>
-		<li><a routerLink=""></a></li>
-	</ol>
+<nav class="navbar bg-base-100 shadow-sm">
+	<div class="navbar-start">
+		<a class="btn btn-ghost text-xl">Demo</a>
+	</div>
+	<div class="navbar-end">
+		<ol class="menu menu-horizontal px-1">
+			<li><a routerLink="/frameworks">Frameworks</a></li>
+			<li><a routerLink="/zooi/18">Zooi</a></li>
+			<li><a routerLink="/zooi/99">Zooi</a></li>
+			<li><a routerLink="/reactivity">Reactivity met Observables</a></li>
+		</ol>
+	</div>
 </nav>
 
 <router-outlet />

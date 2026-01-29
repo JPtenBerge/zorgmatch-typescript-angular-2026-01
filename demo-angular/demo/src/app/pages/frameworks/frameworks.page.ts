@@ -6,7 +6,6 @@ import { Framework } from '../../entities/framework';
 import { ValidationMessages } from '../../validation-message';
 
 @Component({
-	selector: 'app-frameworks',
 	imports: [ValidationMessages, FormField, JsonPipe],
 	templateUrl: './frameworks.page.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
