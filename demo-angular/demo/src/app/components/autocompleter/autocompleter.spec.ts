@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/angular';
-import { UserEvent, userEvent } from '@testing-library/user-event';
+import { type UserEvent, userEvent } from '@testing-library/user-event';
 
 import { Autocompleter } from './autocompleter';
 import { Framework } from '../../entities/framework';
@@ -9,6 +9,9 @@ describe('Autocompleter', () => {
 	let frameworkData: Framework[];
 
 	beforeEach(() => {
+		// TestBed.configureTestingModule({
+		// 	providers: [ ,{ provide: NavigateService, useValue: {} }]
+		// })
 		session = userEvent.setup();
 		frameworkData = [
 			{
@@ -36,7 +39,6 @@ describe('Autocompleter', () => {
 	});
 
 	it('should create', async () => {
-		// Arrange-(Act-Assert)*
 		await render(Autocompleter, {
 			inputs: { data: frameworkData },
 		});
@@ -44,6 +46,7 @@ describe('Autocompleter', () => {
 		let queryInput = screen.getByRole('textbox');
 		await session.clear(queryInput);
 		await session.type(queryInput, 'ngular');
+		await session.click(queryInput);
 
 		let suggestions = screen.getAllByRole('listitem');
 		expect(suggestions.length).toBe(1);

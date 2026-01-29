@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
 	selector: 'app-autocompleter',
@@ -8,6 +9,8 @@ import { JsonPipe } from '@angular/common';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Autocompleter<T extends {}> {
+	navigateService = inject(NavigateService);
+
 	query = signal('hallo');
 	data = input.required<T[]>();
 	selectItem = output<T>();
@@ -32,12 +35,7 @@ export class Autocompleter<T extends {}> {
 	});
 
 	next() {
-		if (this.activeSuggestionIndex !== null) {
-			this.activeSuggestionIndex = (this.activeSuggestionIndex + 1) % this.suggestions().length;
-			return;
-		}
-
-		this.activeSuggestionIndex = 0;
+		this.activeSuggestionIndex = this.navigateService.next(this.suggestions(), this.activeSuggestionIndex);
 	}
 
 	handleSelect() {
