@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, input, signal, viewChild 
 
 import { Autocompleter } from '../../components/autocompleter/autocompleter';
 import { Framework } from '../../entities/framework';
-import { Life } from '../../life';
+import { Life } from '../../components/life';
 
 @Component({
 	imports: [Autocompleter, Life],

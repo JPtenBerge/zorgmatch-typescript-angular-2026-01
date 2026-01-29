@@ -3,7 +3,7 @@ import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { form, FormField, pattern, required } from '@angular/forms/signals';
 import { Framework } from '../../entities/framework';
-import { ValidationMessages } from '../../validation-message';
+import { ValidationMessages } from '../../components/validation-message';
 
 @Component({
 	imports: [ValidationMessages, FormField, JsonPipe],
