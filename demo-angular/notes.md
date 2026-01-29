@@ -303,5 +303,36 @@ Verder:
   - via constructor: heeft minder de voorkeur want bijzondere TypeScript-syntax, maar ook dat steeds meer Angular-onderdelen functies worden ipv classes.
   - `inject(JouwService)`
 
+## Backendcommunicatie
+
+Opties:
+
+- `fetch().then(x => x.json())`
+  - werkt met Promises
+  - doet niks met types
+  - gooit geen error bij 400/401/403/404/...
+- `HttpClient`
+  - Angular's ding
+  - typesafety-ig   `this.http.get<Product[]>()`
+  - gooit wat meer errors
+  - werkt via Observables
+    - Makkelijk met signals te gebruiken d.m.v. `httpResource()`
+      - [helaas wel enkel bedoeld voor GET-requests](https://angular.dev/guide/http/http-resource)
+        >TIP: Avoid using httpResource for mutations like POST or PUT. Instead, prefer directly using the underlying HttpClient APIs.
+      - nog wel experimental
+  - parset JSON
+  - ondersteunt interceptors
+    - request: logging / headers (Auth)
+    - response: logging / "2025-06-24T12:12:07Z"  => DateResponseInterceptor / ErrorInterceptor
+  - bij het testen kun je de `HttpTestingController` gebruiken om HTTP-requests te onderscheppen
+  - met `OnPush` moet je hier of `markForCheck()` gebruiken om de data daadwerkelijk zichtbaar te krijgen. (of `|async` gebruiken, die dat voor je doet)
+- [TanStack Query](https://tanstack.com/query/latest/docs/framework/angular/overview) is ook een overweginkje waard. Hij is nog experimental, maar:
+  - is wel compleet signal-gebaseerd
+  - bruikbaar voor GET, POST, PUT, DELETE en PATCH
+  - komt meteen met `isLoading()` metadata signals
+  - heeft caching ingebouwd en query invalidation
+  - ondersteunt pagination en infinite queries
+
+
 
 
