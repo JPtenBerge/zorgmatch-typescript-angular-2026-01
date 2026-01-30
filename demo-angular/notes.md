@@ -350,3 +350,8 @@ Router features:
 - params zijn uitleesbaar door `ActivatedRoute` te laten injecteren of middels de nieuwere `withComponentInputBinding()` en dan een `input()`-signal te gebruiken
 
 
+## Coole links
+
+- [Rx Playground](https://softwaremill.com/learn-reactive-programming-with-rx-playground/), toffe visualizatie van RxJS-operators
+- [ngx-oneforall](https://github.com/love1024/ngx-oneforall?tab=readme-ov-file), geinige utilities
+  - zeer nieuw, zeer weinig downloads, overweeg om eventueel "gewoon" even naar de repo te gaan en stukjes code te kopieren naar jullie codebase
