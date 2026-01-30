@@ -333,6 +333,25 @@ Opties:
   - heeft caching ingebouwd en query invalidation
   - ondersteunt pagination en infinite queries
 
+### Hoe ververs ik mijn lijst na een POST/PUT/DELETE?
+
+1. De response van de POST gebruik om mijn lokale array bij te werken
+   - voordeel: meer in sync met server. request ging goed. je hebt een id id, paginering/sortering niet.
+   - voordeel: het is relatief snel.
+   - nadeel: het duurt wel langer dan optie #2
+   - alternatief: de server niet 1 bijgewerkte entity terug laten geven, maar de hele lijst.
+   - nog een alternatief: client redirecten naar waar toegevoegde entity staat.
+2. Meteen je lokale array bijwerken
+   - heb je geen id
+   - 2 waarheden - niet in sync met de server. paginering/sortering
+   - voordeel: (gebruiksvriendelijkheid mits je het goed doet)++
+   - nadeel: moeite. achteraf ID bijwerken.
+   - heeft een naam: optimistic UI
+3. De hele lijst opnieuw ophalen / pagina refreshen
+   - nadeel: traagst. dubbele request. server maximaal belast.
+   - voordeel: meest in sync, afhankelijk van hoe snel backend shizzle verwerkt
+   - voordeel: vaak het gemakkelijkst te implementeren  `.getAll()`
+
 ## Routing - SPA
 
 1. routes definieren   /home ==> HomeComponent
@@ -376,6 +395,37 @@ afterEach(() => {
 	vi.restoreAllMocks();
 });
 ```
+
+## Change detection
+
+- Het proces van veranderende data ===> DOM doorvoeren
+- unidirectional top-down dirty-checking   `{{name}}`
+  - reeete-inefficient?
+    - behoorlijk snel. ze doen er wel moeite voor, o.a. met branch prediction
+  - mogelijk zorgen signals ervoor dat dit mechanisme geheel komt te vervallen. Maar da's nog wel eventjes weg.
+  - je kan een `provideCheckNoChangesConfig({ exhaustive: true }),` opnemen in de `app.config.ts` zodat Angular in development mode (zie browser console) change detection 2 keer runt. Dit om te checken dat je geen data aanpast gedurende het databindingproces. Zo wel, dan krijg je een `ExpressionChangedAfterItHasBeenCheckedError`
+    - error komt meestal door data-aanpassingen op een ongepaste moment (vanuit template of bijv. in `ngAfterViewInit()`). Maar ik heb hem ook wel eens gehad toen ik vanuit een directive `inputElement.focus()` aanriep.
+- ~10.000 databindingexpressies is OK
+  - klinkt veel, maar als je wat onbezorgd te werk gaat kun je er relatief makkelijk aan komen. Denk aan een `<crud-grid>` met inline editmogelijkheden, 8 expressies per cel x 7 kolommetjes x 50 rijen tikt al aardig aan.
+- `markForCheck()` geeft aan dat een component weer mee wil doen in een change detection cycle
+
+JavaScript is single-threaded. Een trage cycle betekent een vastlopende UI.
+
+### Zone.js
+
+Wat Zone.js doet:
+
+```ts
+let originalTimeout = window.setTimeout;
+window.setTimeout = (callback, ms) => {
+  originalTimeout(() => {
+    callback();
+    runChangeDetection();
+  }, ms);
+};
+```
+
+Zone.js patcht async APIs en dient als **trigger voor een change detection cycle**
 
 ## Coole links
 
