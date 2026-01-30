@@ -63,7 +63,7 @@ Z'n grootste concurrenten zijn view libraries:
   - Rich Harris - Vercel
   - heel elegant
 - Solid
-  - Ryan Cavanaugh
+  - Ryan Carniato
 
 ### Nadelen
 
@@ -169,7 +169,7 @@ Angular's reactive primitive
 
 Signal functions:
 
-- `signal()` - reactieve value definier  `.set()` `.update()`
+- `signal()` - reactieve value definiëren  `.set()` `.update()`
 - `computed()` - berekenen / afleiden van andere signals
 - `linkedSignal()` - `computed()` met `.set()`/`.update()`
 - `input()`
@@ -210,7 +210,7 @@ Momenteel 3 smaken:
 - Reactive forms
 - Template-driven forms
 - Signal-based forms
-  - Momenteel nog experimental. Zelf zit ik in het kamp van "gebruik maar", want bij een kleine breaking change pas ik liever een eventuele methodenaam aan dan dat ik een Reactive form ga omsleutelen. Maar vel daar zelf een oordeel over. [ng-tips zegt ook nog consider nog using](https://ngtips.com/form#signal-forms).
+  - Momenteel nog experimental. Zelf zit ik in het kamp van "gebruik maar", want bij een kleine breaking change pas ik liever een eventuele methodenaam aan dan dat ik een Reactive form ga omsleutelen. Maar vel daar zelf een oordeel over. [ng-tips zegt ook nog consider not using](https://ngtips.com/form#signal-forms).
 - `valid()` is niet altijd gelijk aan `!invalid()` in verband met async validators die nog pending zijn
 
 ### Reactive
@@ -256,7 +256,7 @@ wanneer sowieso wel:
 - wanneer een `input()` verandert
 - wanneer er een event optreedt binnenin het component
 - wanneer een signalwaarde verandert
-- of expliciet - `markForChanges()`
+- of expliciet - `markForCheck()`
 
 ## Integratietesten
 
@@ -276,7 +276,7 @@ Echter is dit wat primitief. Het is "gewoon" de HTML querien. Ook events aftrapp
 button.dispatchEvent(new CustomEvent('click'));   
 ```
 
-Maar het is hele chirurgische, technische operatie. Houdt geen rekening met of de knop gedisabled is, uberhaupt zichtbaar is, niet volop aan het animeren is.
+Maar het is een hele chirurgische, technische operatie. Het houdt geen rekening met of de knop gedisabled is, überhaupt zichtbaar is, niet volop aan het animeren is.
 
 Testing Library probeert dit alles beter te doen. Focust op het gebruikersperspectief. Selecteert elementen op een accessible manier. Triggert events enkel als dat "kan" en simuleert cursor-bewegingen voordat de klik gebeurt.
 
@@ -293,12 +293,12 @@ Verder:
 ## Dependency injection
 
 - inject dependencies
-- afhankelijkheid los definieren
+- afhankelijkheid los definiëren
 - low coupling, high cohesion
 - service beschikbaar maken:
   - registreren in `providers` array van `app.config.ts` (oude manier)
   - middels `{ providedIn: 'root' }`
-    - betere, moderne manier. helpt met het optimalizeren van je bundle.
+    - betere, moderne manier. helpt met het optimaliseren van je bundle.
 - service injecteren:
   - via constructor: heeft minder de voorkeur want bijzondere TypeScript-syntax, maar ook dat steeds meer Angular-onderdelen functies worden ipv classes.
   - `inject(JouwService)`
@@ -371,7 +371,7 @@ Router features:
 
 - `Promise`: wrapper om async procesje - altijd 1 resultaat (HTTP request)
   - `fetch('api/products')`
-- `Observable`: wrapper om async procesjes - meerdere resultaten (stream)
+- `Observable`: wrapper om async procesje - meerdere resultaten (stream)
 
 ## Advanced testing
 
@@ -404,7 +404,7 @@ afterEach(() => {
     - behoorlijk snel. ze doen er wel moeite voor, o.a. met branch prediction
   - mogelijk zorgen signals ervoor dat dit mechanisme geheel komt te vervallen. Maar da's nog wel eventjes weg.
   - je kan een `provideCheckNoChangesConfig({ exhaustive: true }),` opnemen in de `app.config.ts` zodat Angular in development mode (zie browser console) change detection 2 keer runt. Dit om te checken dat je geen data aanpast gedurende het databindingproces. Zo wel, dan krijg je een `ExpressionChangedAfterItHasBeenCheckedError`
-    - error komt meestal door data-aanpassingen op een ongepaste moment (vanuit template of bijv. in `ngAfterViewInit()`). Maar ik heb hem ook wel eens gehad toen ik vanuit een directive `inputElement.focus()` aanriep.
+    - deze error komt meestal door data-aanpassingen op een ongepaste moment (vanuit template of bijv. in `ngAfterViewInit()`). Maar ik heb hem ook wel eens gehad toen ik vanuit een directive `inputElement.focus()` aanriep.
 - ~10.000 databindingexpressies is OK
   - klinkt veel, maar als je wat onbezorgd te werk gaat kun je er relatief makkelijk aan komen. Denk aan een `<crud-grid>` met inline editmogelijkheden, 8 expressies per cel x 7 kolommetjes x 50 rijen tikt al aardig aan.
 - `markForCheck()` geeft aan dat een component weer mee wil doen in een change detection cycle
@@ -440,11 +440,13 @@ Jullie gaan ongetwijfeld deel uitmaken van de migratie van oud naar modern Angul
 
 - Angular gewoon meer ervaren
 - RxJS
-- tests  Karma/Jasmine, Vitest, Testing Library
+- tests - Karma/Jasmine, Vitest, Testing Library, ng-mocks
 - End-to-end testen (tip: Playwright)
 - Tailwind
+- Angular Material en CDK
 
-Voor wanneer Angular geland is:
-- state management libraries - NGRX/MobX
+Voor wanneer Angular meer geland is:
+
+- state management libraries - [NgRx](https://ngrx.io/)/[NGXS](https://www.ngxs.io/)
 - TanStack Query/Table
 
