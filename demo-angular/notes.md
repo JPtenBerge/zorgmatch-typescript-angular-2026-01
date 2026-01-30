@@ -355,3 +355,4 @@ Router features:
 - [Rx Playground](https://softwaremill.com/learn-reactive-programming-with-rx-playground/), toffe visualizatie van RxJS-operators
 - [ngx-oneforall](https://github.com/love1024/ngx-oneforall?tab=readme-ov-file), geinige utilities
   - zeer nieuw, zeer weinig downloads, overweeg om eventueel "gewoon" even naar de repo te gaan en stukjes code te kopieren naar jullie codebase
+- [Angular DevTools](https://chromewebstore.google.com/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh), kan helpen met debuggen van bijv. dataflow in componenten
