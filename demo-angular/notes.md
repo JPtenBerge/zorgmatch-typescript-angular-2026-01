@@ -349,6 +349,28 @@ Router features:
 - nu in signals graag
 - params zijn uitleesbaar door `ActivatedRoute` te laten injecteren of middels de nieuwere `withComponentInputBinding()` en dan een `input()`-signal te gebruiken
 
+## Advanced testing
+
+- Testing Library voor integratietesten hebben we al gezien 👍
+- Functies mocken met `vi.fn()`
+  - TypeScript utility `Pick<>` kan handig zijn bij grote interfaces te mocken
+    ```ts
+    let navigateServiceMock: Mocked<Pick<NavigateService, 'next' | 'previous'>>;
+    ```
+- `vi.useFakeTimers();` met `vi.advanceTimersByTime(2000);` helpt bij het testen van async code
+  - ⚠️ dit is een globale instelling, zie hieronder
+- `vi.setSystemTime()` helpt met het testen van code die de huidige datum/tijd gebruiken
+  - ⚠️ idem globale instelling, zie hieronder
+
+Globale instellingen resetten met een globale `afterEach()`:
+
+```ts
+afterEach(() => {
+	vi.clearAllTimers();
+	vi.useRealTimers();
+	vi.restoreAllMocks();
+});
+```
 
 ## Coole links
 
@@ -356,3 +378,18 @@ Router features:
 - [ngx-oneforall](https://github.com/love1024/ngx-oneforall?tab=readme-ov-file), geinige utilities
   - zeer nieuw, zeer weinig downloads, overweeg om eventueel "gewoon" even naar de repo te gaan en stukjes code te kopieren naar jullie codebase
 - [Angular DevTools](https://chromewebstore.google.com/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh), kan helpen met debuggen van bijv. dataflow in componenten
+
+## Vervolgstappen na deze training
+
+Jullie gaan ongetwijfeld deel uitmaken van de migratie van oud naar modern Angular. Afhankelijk van wat er op je project gebruikt wordt zijn dit dan interessante verdiepingsslagen:
+
+- Angular gewoon meer ervaren
+- RxJS
+- tests  Karma/Jasmine, Vitest, Testing Library
+- End-to-end testen (tip: Playwright)
+- Tailwind
+
+Voor wanneer Angular geland is:
+- state management libraries - NGRX/MobX
+- TanStack Query/Table
+
