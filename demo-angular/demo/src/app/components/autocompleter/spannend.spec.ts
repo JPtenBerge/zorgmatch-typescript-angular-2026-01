@@ -1,9 +1,3 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Autocompleter } from './autocompleter';
-import { signal } from '@angular/core';
-import { NavigateService } from '../../services/navigate.service';
-import { Mocked } from 'vitest';
-
 let bla = 19;
 function doeIetsSpannends() {
 	setTimeout(() => {
@@ -25,7 +19,6 @@ describe('Component: Autocompleter', () => {
 			doeIetsSpannends();
 
 			vi.advanceTimersByTime(2000);
-
 			expect(bla).toBe(42);
 		});
 	});

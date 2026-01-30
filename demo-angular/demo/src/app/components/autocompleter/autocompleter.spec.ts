@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Autocompleter } from './autocompleter';
-import { signal } from '@angular/core';
 import { NavigateService } from '../../services/navigate.service';
 import { Mocked } from 'vitest';
+import { setInput } from './set-input';
 
 interface Iets {
 	title: string;
@@ -23,7 +23,7 @@ describe('Component: Autocompleter', () => {
 		});
 		fixture = TestBed.createComponent(Autocompleter<Iets>);
 		sut = fixture.componentInstance;
-		fixture.componentRef.setInput('data', ietsjes);
+		setInput(fixture, 'data', ietsjes);
 	});
 
 	it('autocompletes a list of suggestions', () => {
@@ -36,6 +36,6 @@ describe('Component: Autocompleter', () => {
 		sut.next();
 
 		expect(navigateServiceMock.next).toHaveBeenCalledOnce();
-        expect(sut.activeSuggestionIndex).toBe(42);
+		expect(sut.activeSuggestionIndex).toBe(42);
 	});
 });
