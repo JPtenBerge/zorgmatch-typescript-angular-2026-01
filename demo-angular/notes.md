@@ -333,7 +333,6 @@ Opties:
   - heeft caching ingebouwd en query invalidation
   - ondersteunt pagination en infinite queries
 
-
 ## Routing - SPA
 
 1. routes definieren   /home ==> HomeComponent
@@ -348,6 +347,12 @@ Router features:
 - child routes
 - nu in signals graag
 - params zijn uitleesbaar door `ActivatedRoute` te laten injecteren of middels de nieuwere `withComponentInputBinding()` en dan een `input()`-signal te gebruiken
+
+## Asynchroniteit
+
+- `Promise`: wrapper om async procesje - altijd 1 resultaat (HTTP request)
+  - `fetch('api/products')`
+- `Observable`: wrapper om async procesjes - meerdere resultaten (stream)
 
 ## Advanced testing
 
