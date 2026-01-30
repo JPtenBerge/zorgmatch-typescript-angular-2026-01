@@ -1,40 +1,41 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Autocompleter } from './autocompleter';
+import { signal } from '@angular/core';
+import { NavigateService } from '../../services/navigate.service';
 import { Mocked } from 'vitest';
 
-import { Autocompleter } from './autocompleter';
-import { NavigateService } from '../../services/navigate.service';
-
-interface Product {
+interface Iets {
 	title: string;
 }
 
 describe('Component: Autocompleter', () => {
-	let sut: Autocompleter<Product>;
-	let fixture: ComponentFixture<Autocompleter<Product>>;
-	let productData: Product[];
-	let navigateServiceMock: Mocked<NavigateService>;
+	let sut: Autocompleter<Iets>;
+	let fixture: ComponentFixture<Autocompleter<Iets>>;
+	let ietsjes: Iets[];
+	let navigateServiceMock: Mocked<Pick<NavigateService, 'next'>>;
 
 	beforeEach(() => {
-		productData = [{ title: 'Hairbrush' }, { title: 'Laptop' }, { title: 'Mouse' }];
-		navigateServiceMock = { next: vi.fn().mockReturnValue(18) };
+		ietsjes = [{ title: 'hoi' }, { title: 'hallo' }, { title: 'hatseflats' }];
+		navigateServiceMock = { next: vi.fn().mockReturnValue(42) };
 
 		TestBed.configureTestingModule({
 			providers: [{ provide: NavigateService, useValue: navigateServiceMock }],
 		});
-		fixture = TestBed.createComponent(Autocompleter<Product>);
+		fixture = TestBed.createComponent(Autocompleter<Iets>);
 		sut = fixture.componentInstance;
-		fixture.componentRef.setInput('data', productData);
+		fixture.componentRef.setInput('data', ietsjes);
 	});
 
-	it('autocompletes a list of suggestions', async () => {
-		sut.query.set('o');
-		expect(sut.suggestions()).toEqual([{ title: 'Laptop' }, { title: 'Mouse' }]);
+	it('autocompletes a list of suggestions', () => {
+		sut.query.set('a');
+		expect(sut.suggestions()).toEqual<Iets[]>([{ title: 'hallo' }, { title: 'hatseflats' }]);
 	});
 
-	it(`uses ${NavigateService.name} for nexting to the next suggestions`, () => {
-		sut.query.set('o');
+	it(`uses ${NavigateService.name} for nexting`, () => {
+		sut.query.set('a');
 		sut.next();
-		expect(navigateServiceMock.next).toHaveBeenCalled();
-		expect(sut.activeSuggestionIndex).toBe(18);
+
+		expect(navigateServiceMock.next).toHaveBeenCalledOnce();
+        expect(sut.activeSuggestionIndex).toBe(42);
 	});
 });

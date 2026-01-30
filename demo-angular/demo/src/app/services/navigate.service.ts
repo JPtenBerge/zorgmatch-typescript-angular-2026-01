@@ -10,4 +10,12 @@ export class NavigateService {
 
 		return 0;
 	}
+
+	previous() {
+
+	}
+
+	dinges() {
+		
+	}
 }
